@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys, os
+
 sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +15,7 @@ network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
 # 하이퍼파라미터
 iters_num = 10000  # 반복 횟수를 적절히 설정한다.
 train_size = x_train.shape[0]
-batch_size = 100   # 미니배치 크기
+batch_size = 100  # 미니배치 크기
 learning_rate = 0.1
 
 train_loss_list = []
@@ -29,19 +30,19 @@ for i in range(iters_num):
     batch_mask = np.random.choice(train_size, batch_size)
     x_batch = x_train[batch_mask]
     t_batch = t_train[batch_mask]
-    
+
     # 기울기 계산
-    #grad = network.numerical_gradient(x_batch, t_batch)
+    # grad = network.numerical_gradient(x_batch, t_batch)
     grad = network.gradient(x_batch, t_batch)
-    
+
     # 매개변수 갱신
-    for key in ('W1', 'b1', 'W2', 'b2'):
+    for key in ("W1", "b1", "W2", "b2"):
         network.params[key] -= learning_rate * grad[key]
-    
+
     # 학습 경과 기록
     loss = network.loss(x_batch, t_batch)
     train_loss_list.append(loss)
-    
+
     # 1에폭당 정확도 계산
     if i % iter_per_epoch == 0:
         train_acc = network.accuracy(x_train, t_train)
@@ -51,12 +52,12 @@ for i in range(iters_num):
         print("train acc, test acc | " + str(train_acc) + ", " + str(test_acc))
 
 # 그래프 그리기
-markers = {'train': 'o', 'test': 's'}
+markers = {"train": "o", "test": "s"}
 x = np.arange(len(train_acc_list))
-plt.plot(x, train_acc_list, label='train acc')
-plt.plot(x, test_acc_list, label='test acc', linestyle='--')
+plt.plot(x, train_acc_list, label="train acc")
+plt.plot(x, test_acc_list, label="test acc", linestyle="--")
 plt.xlabel("epochs")
 plt.ylabel("accuracy")
 plt.ylim(0, 1.0)
-plt.legend(loc='lower right')
+plt.legend(loc="lower right")
 plt.show()

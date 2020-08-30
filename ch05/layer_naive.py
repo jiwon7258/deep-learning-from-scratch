@@ -2,13 +2,13 @@
 
 
 class MulLayer:
-    def __init__(self):
+    def __init__(self):  # 순전파시의 입력 값을 유지. 역전파시 사용한다
         self.x = None
         self.y = None
 
     def forward(self, x, y):
         self.x = x
-        self.y = y                
+        self.y = y
         out = x * y
 
         return out
